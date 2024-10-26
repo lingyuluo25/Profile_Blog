@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <!-- Main Image -->
+    <section class="row" aria-labelledby="blogImageSection" style="background-image: url('@Url.Content("~/Content/Head-Image.jpg")'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 500px;">
+        <div class="col-12 text-center my-5">
+            <h1 id="blogImageSection" style="color: white;"></h1>
+        </div>
+    </section>
+
+    
+    <!-- Under Sections -->
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="codingTitle">
+            <h2 id="codingTitle">Coding</h2>
+            <p>Explore the latest coding trends, tutorials, and insights that power Lynn's creative journey.</p>
+            <p><img src="~/Content/img/coding.jpg" class="resize-img"></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="designTitle">
+            <h2 id="designTitle">Design</h2>
+            <p>Discover Lynn's world of design, from minimalism to vibrant concepts that bring ideas to life.</p>
+            <p><img src="~/Content/img/design.jpg" class="resize-img"></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="artTitle">
+            <h2 id="artTitle">Art</h2>
+            <p>Dive into the artistic creations and inspirations that shape Lynn's blog, merging traditional and digital art.</p>
+            <p><img src="~/Content/img/art.jpg" class="resize-img"></p>
+        </section>
+    </div>
+</main>

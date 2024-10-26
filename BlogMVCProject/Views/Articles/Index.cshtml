@@ -1,0 +1,77 @@
+﻿@model BlogMVCProject.ViewModels.ArticleIndexViewModel
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Articles";
+}
+
+<h2>Articles</h2>
+
+<p>
+    @(String.IsNullOrWhiteSpace(Model.Search) ? "Showing all" : "You searched for \"" + Model.Search + "\", found") @Model.Articles.TotalItemCount articles
+    @Html.ActionLink("Create New", "Create")
+
+    @using (Html.BeginForm("Index", "Articles", FormMethod.Get))
+    {
+        <label> Filter by Category: </label>
+        @Html.DropDownListFor(vm => vm.Category, Model.CatFilterItems, "All")
+
+        <label>Sort By:</label>
+        @Html.DropDownListFor(vm => vm.SortBy, new SelectList(Model.Sorts, "Key", "Value"), "Default")
+
+        <input type="submit" value="Filter" />
+        <input type="hidden" name="Search" id="Search" value="@Model.Search" />
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles.First().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles.First().Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles.First().PublishedDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Articles)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    Page @(Model.Articles.PageCount < Model.Articles.PageNumber ? 0 : Model.Articles.PageNumber) of @Model.Articles.PageCount
+    @Html.PagedListPager(Model.Articles, page => Url.Action("Index", new
+    {
+        category = Model.Category,
+        search = Model.Search,
+        sortBy = Model.SortBy,
+        page
+    }))
+</div>
